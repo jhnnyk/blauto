@@ -1,8 +1,4 @@
-body {
-  font-family: Helvetica, Arial, sans-serif;
-}
-
-.container {
-  max-width: 800px;
+.page-content {
+  max-width: 80%;
   margin: 0 auto;
 }
