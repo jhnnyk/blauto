@@ -137,7 +137,7 @@ describe ApplicationController do
 
       fill_in(:username, :with => "becky567")
       fill_in(:password, :with => "kittens")
-      click_button 'submit'
+      click_button 'Login'
       expect(page.current_path).to eq('/cars')
     end
   end

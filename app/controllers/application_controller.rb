@@ -26,7 +26,11 @@ end
   end
 
   get '/signup' do
-    erb :'users/signup'
+    if logged_in?
+      redirect to '/cars'
+    else
+      erb :'users/signup'
+    end
   end
 
   post '/signup' do
@@ -39,6 +43,40 @@ end
       redirect to '/cars'
     else
       redirect to '/signup'
+    end
+  end
+
+  get '/login' do
+    if logged_in?
+      redirect to '/cars'
+    else
+      erb :'users/login'
+    end
+  end
+
+  post '/login' do
+    @user = User.find_by(username: params[:username])
+
+    if @user && @user.authenticate(params[:password])
+      # TODO: add flash message for successful login
+      session[:user_id] = @user.id
+      redirect to '/cars'
+    else
+      # TODO: add flash message for unsucessful login
+      redirect to '/login'
+    end
+  end
+
+  get '/logout' do
+    session.clear
+    redirect to '/login'
+  end
+
+  get '/cars' do
+    if logged_in?
+      erb :'cars/index'
+    else
+      redirect to '/login'
     end
   end
 
