@@ -101,7 +101,7 @@ end
                       :mileage => mileage)
     @car.user = current_user
     if @car.save
-      redirect to "/users/#{user.slug}"
+      redirect to "/users/#{current_user.slug}"
     else
       redirect to '/cars/new'
     end
