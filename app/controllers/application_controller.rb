@@ -112,4 +112,9 @@ end
     erb :'users/show'
   end
 
+  get '/cars/:id' do
+    @car = Car.find_by(:id => params[:id])
+    erb :'cars/show'
+  end
+
 end

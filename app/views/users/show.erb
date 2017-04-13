@@ -1,6 +1,6 @@
 <h1><%= @user.username %>'s cars</h1>
 <ul>
   <% @user.cars.each do |car| %>
-    <li><%= car.year %> <%= car.car_make %> <%= car.car_model %></li>
+    <li><a href="/cars/<%= car.id %>"><%= car.year %> <%= car.car_make %> <%= car.car_model %></a>: <%= car.mileage %> miles</li>
   <% end %>
 </ul>

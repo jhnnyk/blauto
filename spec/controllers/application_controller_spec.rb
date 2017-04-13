@@ -247,4 +247,15 @@ describe ApplicationController do
     end
   end
 
+  describe 'car show page' do
+    it 'shows car page' do
+      user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+      car = Car.create(:year => 2000, :car_make => "Toyota", :car_model => "Land Cruiser", :nickname => "Land Cruiser", :mileage => 318150, :user_id => user.id)
+
+      get "/cars/#{car.id}"
+
+      expect(last_response.body).to include("Land Cruiser")
+    end
+  end
+
 end
