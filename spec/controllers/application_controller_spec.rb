@@ -145,12 +145,105 @@ describe ApplicationController do
   describe 'user show page' do
     it 'shows all a single users cars' do
       user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-      car1 = Car.create(:year => 2000, :make => "Toyota", :model => "Land Cruiser", :nickname => "Land Cruiser", :mileage => 318150, :user_id => user.id)
-      car2 = Car.create(:year => 2013, :make => "Subaru", :model => "Outback", :nickname => "Subie", :mileage => 122000, :user_id => user.id)
+      car1 = Car.create(:year => 2000, :car_make => "Toyota", :car_model => "Land Cruiser", :nickname => "Land Cruiser", :mileage => 318150, :user_id => user.id)
+      car2 = Car.create(:year => 2013, :car_make => "Subaru", :car_model => "Outback", :nickname => "Subie", :mileage => 122000, :user_id => user.id)
       get "/users/#{user.slug}"
 
       expect(last_response.body).to include("Land Cruiser")
       expect(last_response.body).to include("Outback")
+    end
+  end
+
+  describe 'new action' do
+    context 'logged in' do
+      it 'lets user view new car form if logged in' do
+        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+
+        visit '/login'
+
+        fill_in(:username, :with => "becky567")
+        fill_in(:password, :with => "kittens")
+        click_button 'Login'
+        visit '/cars/new'
+        expect(page.status_code).to eq(200)
+
+      end
+
+      it 'lets user create a car if they are logged in' do
+        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+
+        visit '/login'
+
+        fill_in(:username, :with => "becky567")
+        fill_in(:password, :with => "kittens")
+        click_button 'Login'
+
+        visit '/cars/new'
+        fill_in(:year, :with => 2000)
+        fill_in(:car_make, :with => "Toyota")
+        fill_in(:car_model, :with => "Land Cruiser")
+        fill_in(:nickname, :with => "Land Cruisy")
+        fill_in(:mileage, :with => 1999)
+        click_button 'Add car'
+
+        user = User.find_by(:username => "becky567")
+        car = Car.find_by(:nickname => "Land Cruisy")
+        expect(car).to be_instance_of(Car)
+        expect(car.user_id).to eq(user.id)
+        expect(page.status_code).to eq(200)
+      end
+
+      it 'does not let a user create a car for another user' do
+        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+        user2 = User.create(:username => "silverstallion", :email => "silver@aol.com", :password => "horses")
+
+        visit '/login'
+
+        fill_in(:username, :with => "becky567")
+        fill_in(:password, :with => "kittens")
+        click_button 'Login'
+
+        visit '/cars/new'
+
+        fill_in(:year, :with => 2000)
+        fill_in(:car_make, :with => "Toyota")
+        fill_in(:car_model, :with => "Land Cruiser")
+        fill_in(:nickname, :with => "Land Cruisy")
+        fill_in(:mileage, :with => 1999)
+        click_button 'Add car'
+
+        user = User.find_by(:id=> user.id)
+        user2 = User.find_by(:id => user2.id)
+        car = Car.find_by(:nickname => "Land Cruisy")
+        expect(car).to be_instance_of(Car)
+        expect(car.user_id).to eq(user.id)
+        expect(car.user_id).not_to eq(user2.id)
+      end
+
+      it 'does not let a user create a car without a nickname' do
+        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+
+        visit '/login'
+
+        fill_in(:username, :with => "becky567")
+        fill_in(:password, :with => "kittens")
+        click_button 'Login'
+
+        visit '/cars/new'
+
+        fill_in(:nickname, :with => "")
+        click_button 'Add car'
+
+        expect(Car.find_by(:nickname => "")).to eq(nil)
+        expect(page.current_path).to eq("/cars/new")
+      end
+    end
+
+    context 'logged out' do
+      it 'does not let user view new car form if not logged in' do
+        get '/cars/new'
+        expect(last_response.location).to include("/login")
+      end
     end
   end
 

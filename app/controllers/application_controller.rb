@@ -80,6 +80,33 @@ end
     end
   end
 
+  get '/cars/new' do
+    if logged_in?
+      erb :'cars/new'
+    else
+      redirect to '/login'
+    end
+  end
+
+  post '/cars' do
+    year = Sanitize.fragment(params[:year])
+    car_make = Sanitize.fragment(params[:car_make])
+    car_model = Sanitize.fragment(params[:car_model])
+    nickname = Sanitize.fragment(params[:nickname])
+    mileage = Sanitize.fragment(params[:mileage])
+    @car = Car.create(:year => year,
+                      :car_make => car_make,
+                      :car_model => car_model,
+                      :nickname => nickname,
+                      :mileage => mileage)
+    @car.user = current_user
+    if @car.save
+      redirect to "/users/#{user.slug}"
+    else
+      redirect to '/cars/new'
+    end
+  end
+
   get '/users/:slug' do
     @user = User.find_by_slug(params[:slug])
     erb :'users/show'
