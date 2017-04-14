@@ -133,10 +133,12 @@ end
   end
 
   post '/fillups/:id' do
-    mileage = Sanitize.fragment(params[:mileage])
-    gallons = Sanitize.fragment(params[:gallons])
-    octane  = Sanitize.fragment(params[:octane])
-    price   = Sanitize.fragment(params[:price])
+    mileage  = Sanitize.fragment(params[:mileage])
+    gallons  = Sanitize.fragment(params[:gallons])
+    octane   = Sanitize.fragment(params[:octane])
+    price    = Sanitize.fragment(params[:price])
+    brand    = Sanitize.fragment(params[:brand])
+    location = Sanitize.fragment(params[:location])
 
     @car = Car.find_by(:id => params[:id])
     @fillup = Fillup.create(:mileage => mileage,
@@ -144,6 +146,8 @@ end
                             :octane  => octane,
                             :price   => price,
                             :car_id  => @car.id)
+    @fillup.fillup_date = Time.now
+    @fillup.save
 
     redirect to "/cars/#{@car.id}"
   end
