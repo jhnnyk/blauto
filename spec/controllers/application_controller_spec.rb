@@ -18,14 +18,14 @@ describe ApplicationController do
       expect(last_response.status).to eq(200)
     end
 
-    it 'signup directs user to cars index' do
+    it 'signup directs user to their index page' do
       params = {
         :username => "skittles123",
         :email => "skittles@aol.com",
         :password => "rainbows"
       }
       post '/signup', params
-      expect(last_response.location).to include("/cars")
+      expect(last_response.location).to include("/users/skittles123")
     end
 
     it 'does not let a user sign up without a username' do
@@ -79,7 +79,7 @@ describe ApplicationController do
       expect(last_response.status).to eq(200)
     end
 
-    it 'loads the tweets index after login' do
+    it 'loads the users index after login' do
       user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
       params = {
         :username => "becky567",
@@ -89,7 +89,7 @@ describe ApplicationController do
       expect(last_response.status).to eq(302)
       follow_redirect!
       expect(last_response.status).to eq(200)
-      expect(last_response.body).to include("Welcome,")
+      expect(last_response.body).to include("becky567's cars")
     end
 
     it 'does not let user view login page if already logged in' do
@@ -103,7 +103,7 @@ describe ApplicationController do
       session = {}
       session[:id] = user.id
       get '/login'
-      expect(last_response.location).to include("/cars")
+      expect(last_response.location).to include("/users/#{user.slug}")
     end
   end
 
@@ -125,12 +125,12 @@ describe ApplicationController do
       expect(last_response.location).to include("/")
     end
 
-    it 'does not load /cars if user not logged in' do
-      get '/cars'
+    it 'does not load users page if user not logged in' do
+      get '/users/becky567'
       expect(last_response.location).to include("/login")
     end
 
-    it 'does load /cars if user is logged in' do
+    it 'does load users page if user is logged in' do
       user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
 
       visit '/login'
@@ -138,7 +138,7 @@ describe ApplicationController do
       fill_in(:username, :with => "becky567")
       fill_in(:password, :with => "kittens")
       click_button 'Login'
-      expect(page.current_path).to eq('/cars')
+      expect(page.current_path).to eq("/users/#{user.slug}")
     end
   end
 
@@ -147,10 +147,15 @@ describe ApplicationController do
       user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
       car1 = Car.create(:year => 2000, :car_make => "Toyota", :car_model => "Land Cruiser", :nickname => "Land Cruiser", :mileage => 318150, :user_id => user.id)
       car2 = Car.create(:year => 2013, :car_make => "Subaru", :car_model => "Outback", :nickname => "Subie", :mileage => 122000, :user_id => user.id)
-      get "/users/#{user.slug}"
 
-      expect(last_response.body).to include("Land Cruiser")
-      expect(last_response.body).to include("Outback")
+      visit '/login'
+
+      fill_in(:username, :with => "becky567")
+      fill_in(:password, :with => "kittens")
+      click_button 'Login'
+
+      expect(page).to have_text("Land Cruiser")
+      expect(page).to have_text("Outback")
     end
   end
 

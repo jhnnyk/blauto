@@ -140,7 +140,8 @@ describe FillupController do
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'Login'
-        visit 'fillups/1'
+        visit "/fillups/#{fillup.id}"
+
         click_button "delete"
         expect(page.status_code).to eq(200)
         expect(Fillup.find_by(:location => "Evergreen, CO")).to eq(nil)
@@ -160,7 +161,7 @@ describe FillupController do
         fill_in(:username, :with => "becky567")
         fill_in(:password, :with => "kittens")
         click_button 'Login'
-        visit "fillups/#{fillup2.id}"
+        visit "/fillups/#{fillup2.id}"
         click_button "delete"
         expect(page.status_code).to eq(200)
         expect(Fillup.find_by(:location => "Conifer, CO")).to be_instance_of(Fillup)

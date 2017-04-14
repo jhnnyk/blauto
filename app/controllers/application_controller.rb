@@ -44,7 +44,7 @@ end
 
     if @user.save
       session[:user_id] = @user.id
-      redirect to '/cars'
+      redirect to "/users/#{@user.slug}"
     else
       redirect to '/signup'
     end
@@ -52,7 +52,7 @@ end
 
   get '/login' do
     if logged_in?
-      redirect to '/cars'
+      redirect to "/users/#{current_user.slug}"
     else
       erb :'users/login'
     end
@@ -64,7 +64,7 @@ end
     if @user && @user.authenticate(params[:password])
       # TODO: add flash message for successful login
       session[:user_id] = @user.id
-      redirect to '/cars'
+      redirect to "/users/#{@user.slug}"
     else
       # TODO: add flash message for unsucessful login
       redirect to '/login'
@@ -74,14 +74,6 @@ end
   get '/logout' do
     session.clear
     redirect to '/login'
-  end
-
-  get '/cars' do
-    if logged_in?
-      erb :'cars/index'
-    else
-      redirect to '/login'
-    end
   end
 
   get '/cars/new' do
@@ -114,8 +106,12 @@ end
   end
 
   get '/users/:slug' do
-    @user = User.find_by_slug(params[:slug])
-    erb :'users/show'
+    if logged_in?
+      @user = User.find_by_slug(params[:slug])
+      erb :'users/show'
+    else
+      redirect to '/login'
+    end
   end
 
   get '/cars/:id' do
