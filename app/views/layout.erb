@@ -18,10 +18,11 @@
           <div class="mdl-layout-spacer"></div>
           <!-- Navigation. We hide it in small screens. -->
           <nav class="mdl-navigation mdl-layout--large-screen-only">
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
 
             <% if logged_in? %>
+              <a class="mdl-navigation__link" href="/users/<%= current_user.slug %>">
+                <i class="material-icons">account_circle</i>
+              </a>
               <a class="mdl-navigation__link" href="/logout">Logout</a>
             <% else %>
               <a class="mdl-navigation__link" href="/login">Login</a>
@@ -34,16 +35,15 @@
       <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">blauto</span>
         <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href="">Link</a>
-          <a class="mdl-navigation__link" href="">Link</a>
 
           <% if logged_in? %>
+            <a class="mdl-navigation__link" href="/users/<%= current_user.slug %>">Account</a>
             <a class="mdl-navigation__link" href="/logout">Logout</a>
           <% else %>
             <a class="mdl-navigation__link" href="/login">Login</a>
             <a class="mdl-navigation__link" href="/signup">Sign up</a>
           <% end %>
-          
+
         </nav>
       </div>
       <main class="mdl-layout__content">
