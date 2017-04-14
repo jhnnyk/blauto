@@ -16,7 +16,7 @@
 
     <ul>
       <% @car.fillups.each do |fillup| %>
-        <li><%= fillup.gallons %> of <%= fillup.octane %> cost <%= fillup.price %></li>
+        <li><%= fillup.gallons %> gallons of <%= fillup.octane %> cost $<%= fillup.price %></li>
       <% end %>
     </ul>
   </div>

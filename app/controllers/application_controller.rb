@@ -34,9 +34,13 @@ end
   end
 
   post '/signup' do
-    @user = User.new(username: params[:username],
-                        email: params[:email],
-                     password: params[:password])
+    username = Sanitize.fragment(params[:username])
+       email = Sanitize.fragment(params[:email])
+    password = Sanitize.fragment(params[:password])
+
+    @user = User.new(username: username,
+                        email: email,
+                     password: password)
 
     if @user.save
       session[:user_id] = @user.id
@@ -89,11 +93,12 @@ end
   end
 
   post '/cars' do
-    year = Sanitize.fragment(params[:year])
-    car_make = Sanitize.fragment(params[:car_make])
+         year = Sanitize.fragment(params[:year])
+     car_make = Sanitize.fragment(params[:car_make])
     car_model = Sanitize.fragment(params[:car_model])
-    nickname = Sanitize.fragment(params[:nickname])
-    mileage = Sanitize.fragment(params[:mileage])
+     nickname = Sanitize.fragment(params[:nickname])
+      mileage = Sanitize.fragment(params[:mileage])
+
     @car = Car.create(:year => year,
                   :car_make => car_make,
                  :car_model => car_model,
@@ -129,8 +134,8 @@ end
   post '/fillups/:id' do
     mileage = Sanitize.fragment(params[:mileage])
     gallons = Sanitize.fragment(params[:gallons])
-    octane = Sanitize.fragment(params[:octane])
-    price = Sanitize.fragment(params[:price])
+     octane = Sanitize.fragment(params[:octane])
+      price = Sanitize.fragment(params[:price])
 
     @car = Car.find_by(:id => params[:id])
     @fillup = Fillup.create(:mileage => mileage,
