@@ -61,4 +61,14 @@ class FillupController < ApplicationController
     redirect to "/fillups/#{@fillup.id}"
   end
 
+  delete '/fillups/:id/delete' do
+    @fillup = Fillup.find_by(:id => params[:id])
+
+    if current_user == @fillup.car.user
+      @fillup.delete
+    end
+
+    redirect to "/users/#{current_user.slug}"
+  end
+
 end

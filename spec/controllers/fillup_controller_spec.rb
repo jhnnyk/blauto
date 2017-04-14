@@ -148,8 +148,8 @@ describe FillupController do
 
       it 'does not let a user delete a fillup they do not own' do
         user1 = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
-        car = Car.create(:year => 2000, :car_make => "Toyota", :car_model => "Land Cruiser", :nickname => "Land Cruiser", :mileage => 318150, :user_id => user.id)
-        fillup = Fillup.create(:mileage => 215000, :gallons => 12, :octane => "91", :price => 36.00, :brand => "Chevron", :location => "Evergreen, CO", :car_id => car.id, :fillup_date => Time.now)
+        car1 = Car.create(:year => 2000, :car_make => "Toyota", :car_model => "Land Cruiser", :nickname => "Land Cruiser", :mileage => 318150, :user_id => user1.id)
+        fillup1 = Fillup.create(:mileage => 215000, :gallons => 12, :octane => "91", :price => 36.00, :brand => "Chevron", :location => "Evergreen, CO", :car_id => car1.id, :fillup_date => Time.now)
 
         user2 = User.create(:username => "silverstallion", :email => "silver@aol.com", :password => "horses")
         car2 = Car.create(:year => 2001, :car_make => "Subaru", :car_model => "Outback", :nickname => "Subie", :mileage => 122000, :user_id => user2.id)
@@ -171,7 +171,7 @@ describe FillupController do
 
     context "logged out" do
       it 'does not load let user delete a fillup if not logged in' do
-        user1 = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
         car = Car.create(:year => 2000, :car_make => "Toyota", :car_model => "Land Cruiser", :nickname => "Land Cruiser", :mileage => 318150, :user_id => user.id)
         fillup = Fillup.create(:mileage => 215000, :gallons => 12, :octane => "91", :price => 36.00, :brand => "Chevron", :location => "Evergreen, CO", :car_id => car.id, :fillup_date => Time.now)
         visit '/fillups/1'
