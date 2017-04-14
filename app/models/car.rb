@@ -1,5 +1,6 @@
 class Car < ActiveRecord::Base
   belongs_to :user
+  has_many :fillups
   validates_presence_of :nickname
 
   def slug

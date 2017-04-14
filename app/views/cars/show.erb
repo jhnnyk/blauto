@@ -1,2 +1,30 @@
-<h1><%= @car.nickname %></h1>
-<p><%= @car.year %> <%= @car.car_make %> <%= @car.car_model %></p>
+<div class="mdl-grid">
+  <div class="mdl-layout-spacer"></div>
+    <div class="mdl-cell mdl-cell--4-col">
+      <h1><%= @car.nickname %></h1>
+      <p><%= @car.year %> <%= @car.car_make %> <%= @car.car_model %></p>
+    </div>
+    <div class="mdl-layout-spacer"></div>
+</div>
+
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--6-col">
+    <h3>Fill Ups</h3>
+    <a class="new-button mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" href="/cars/<%= @car.id %>/fillups/new">
+      <i class="material-icons">add</i>
+    </a>
+
+    <ul>
+      <% @car.fillups.each do |fillup| %>
+        <li><%= fillup.gallons %> of <%= fillup.octane %> cost <%= fillup.price %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="mdl-cell mdl-cell--6-col">
+    <h3>Services</h3>
+    <a class="new-button mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" href="/cars/<%= @car.id %>/services/new">
+      <i class="material-icons">add</i>
+    </a>
+  </div>
+</div>

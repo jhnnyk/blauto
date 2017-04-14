@@ -1,0 +1,41 @@
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--3-col"></div>
+
+  <div class="mdl-cell mdl-cell--6-col">
+
+    <form action="/fillups/<%= @car.id %>" method="post">
+      <h1><%= @car.nickname %></h1>
+      <hr>
+      <h3>Add a fill up:</h3>
+
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" name="mileage" id="mileage">
+        <label class="mdl-textfield__label" for="mileage">Mileage</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" name="gallons" id="gallons">
+        <label class="mdl-textfield__label" for="gallons">Gallons</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <select class="mdl-textfield__input" id="octane" name="octane">
+          <option></option>
+          <option value="85">85</option>
+          <option value="87">87</option>
+          <option value="89">89</option>
+          <option value="91">91</option>
+          <option value="diesel">Diesel</option>
+        </select>
+        <label class="mdl-textfield__label" for="octane">Octane</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" name="price" id="price">
+        <label class="mdl-textfield__label" for="price">Price</label>
+      </div>
+      <br>
+      <input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" value="Add fill up">
+    </form>
+
+  </div>
+
+  <div class="mdl-cell mdl-cell--3-col"></div>
+</div>

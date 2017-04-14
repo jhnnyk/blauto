@@ -166,7 +166,6 @@ describe ApplicationController do
         click_button 'Login'
         visit '/cars/new'
         expect(page.status_code).to eq(200)
-
       end
 
       it 'lets user create a car if they are logged in' do
@@ -255,6 +254,51 @@ describe ApplicationController do
       get "/cars/#{car.id}"
 
       expect(last_response.body).to include("Land Cruiser")
+    end
+  end
+
+  describe 'new fillup' do
+    context 'logged in' do
+      it 'lets user view new fillup form if logged in' do
+        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+        car = Car.create(:year => 2000, :car_make => "Toyota", :car_model => "Land Cruiser", :nickname => "Land Cruiser", :mileage => 318150, :user_id => user.id)
+
+        visit '/login'
+
+        fill_in(:username, :with => "becky567")
+        fill_in(:password, :with => "kittens")
+        click_button 'Login'
+
+        visit "/cars/#{car.id}/fillups/new"
+        expect(page.status_code).to eq(200)
+      end
+
+      it 'lets user create a fillup if they are logged in' do
+        user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
+        car = Car.create(:year => 2000, :car_make => "Toyota", :car_model => "Land Cruiser", :nickname => "Land Cruiser", :mileage => 318150, :user_id => user.id)
+
+        visit '/login'
+
+        fill_in(:username, :with => "becky567")
+        fill_in(:password, :with => "kittens")
+        click_button 'Login'
+
+        visit "/cars/#{car.id}/fillups/new"
+
+        fill_in(:mileage, :with => 1999)
+        fill_in(:gallons, :with => 21.158)
+        fill_in(:price, :with => 60.22)
+        click_button 'Add fill up'
+
+        expect(page.body).to include("21.158")
+      end
+    end
+
+    context 'logged out' do
+      it 'does not let user view new fillup form if not logged in' do
+        get '/cars/1/fillups/new'
+        expect(last_response.location).to include("/login")
+      end
     end
   end
 

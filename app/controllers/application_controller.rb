@@ -95,10 +95,10 @@ end
     nickname = Sanitize.fragment(params[:nickname])
     mileage = Sanitize.fragment(params[:mileage])
     @car = Car.create(:year => year,
-                      :car_make => car_make,
-                      :car_model => car_model,
-                      :nickname => nickname,
-                      :mileage => mileage)
+                  :car_make => car_make,
+                 :car_model => car_model,
+                  :nickname => nickname,
+                   :mileage => mileage)
     @car.user = current_user
     if @car.save
       redirect to "/users/#{current_user.slug}"
@@ -115,6 +115,31 @@ end
   get '/cars/:id' do
     @car = Car.find_by(:id => params[:id])
     erb :'cars/show'
+  end
+
+  get '/cars/:id/fillups/new' do
+    if logged_in?
+      @car = Car.find_by(:id => params[:id])
+      erb :'fillups/new'
+    else
+      redirect to '/login'
+    end
+  end
+
+  post '/fillups/:id' do
+    mileage = Sanitize.fragment(params[:mileage])
+    gallons = Sanitize.fragment(params[:gallons])
+    octane = Sanitize.fragment(params[:octane])
+    price = Sanitize.fragment(params[:price])
+
+    @car = Car.find_by(:id => params[:id])
+    @fillup = Fillup.create(:mileage => mileage,
+                            :gallons => gallons,
+                             :octane => octane,
+                              :price => price,
+                             :car_id => @car.id)
+
+    redirect to "/cars/#{@car.id}"
   end
 
 end
