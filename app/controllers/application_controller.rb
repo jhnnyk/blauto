@@ -35,7 +35,7 @@ end
 
   post '/signup' do
     username = Sanitize.fragment(params[:username])
-       email = Sanitize.fragment(params[:email])
+    email    = Sanitize.fragment(params[:email])
     password = Sanitize.fragment(params[:password])
 
     @user = User.new(username: username,
@@ -93,18 +93,19 @@ end
   end
 
   post '/cars' do
-         year = Sanitize.fragment(params[:year])
-     car_make = Sanitize.fragment(params[:car_make])
+    year      = Sanitize.fragment(params[:year])
+    car_make  = Sanitize.fragment(params[:car_make])
     car_model = Sanitize.fragment(params[:car_model])
-     nickname = Sanitize.fragment(params[:nickname])
-      mileage = Sanitize.fragment(params[:mileage])
+    nickname  = Sanitize.fragment(params[:nickname])
+    mileage   = Sanitize.fragment(params[:mileage])
 
-    @car = Car.create(:year => year,
-                  :car_make => car_make,
-                 :car_model => car_model,
-                  :nickname => nickname,
-                   :mileage => mileage)
+    @car = Car.create(:year      => year,
+                      :car_make  => car_make,
+                      :car_model => car_model,
+                      :nickname  => nickname,
+                      :mileage   => mileage)
     @car.user = current_user
+
     if @car.save
       redirect to "/users/#{current_user.slug}"
     else
@@ -134,15 +135,15 @@ end
   post '/fillups/:id' do
     mileage = Sanitize.fragment(params[:mileage])
     gallons = Sanitize.fragment(params[:gallons])
-     octane = Sanitize.fragment(params[:octane])
-      price = Sanitize.fragment(params[:price])
+    octane  = Sanitize.fragment(params[:octane])
+    price   = Sanitize.fragment(params[:price])
 
     @car = Car.find_by(:id => params[:id])
     @fillup = Fillup.create(:mileage => mileage,
                             :gallons => gallons,
-                             :octane => octane,
-                              :price => price,
-                             :car_id => @car.id)
+                            :octane  => octane,
+                            :price   => price,
+                            :car_id  => @car.id)
 
     redirect to "/cars/#{@car.id}"
   end
