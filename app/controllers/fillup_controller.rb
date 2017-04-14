@@ -18,11 +18,13 @@ class FillupController < ApplicationController
     location = Sanitize.fragment(params[:location])
 
     @car = Car.find_by(:id => params[:id])
-    @fillup = Fillup.create(:mileage => mileage,
-                            :gallons => gallons,
-                            :octane  => octane,
-                            :price   => price,
-                            :car_id  => @car.id)
+    @fillup = Fillup.create(:mileage  => mileage,
+                            :gallons  => gallons,
+                            :octane   => octane,
+                            :price    => price,
+                            :brand    => brand,
+                            :location => location,
+                            :car_id   => @car.id)
     @fillup.fillup_date = Time.now
     @fillup.save
 
