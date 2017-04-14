@@ -16,7 +16,10 @@
 
     <ul>
       <% @car.fillups.each do |fillup| %>
-        <li><%= fillup.fillup_date.in_time_zone('Mountain Time (US & Canada)').strftime("%b %d %I:%M %p") %>: <%= fillup.gallons %> gallons of <%= fillup.octane %> cost $<%= fillup.price %></li>
+        <li>
+          <%= fillup.fillup_date.in_time_zone('Mountain Time (US & Canada)').strftime("%b %d %I:%M %p") %>: <%= fillup.gallons %> gallons of <%= fillup.octane %> cost $<%= fillup.price %>
+          <a href="/fillups/<%= fillup.id %>"><i class="material-icons">forward</i></a>
+        </li>
       <% end %>
     </ul>
   </div>

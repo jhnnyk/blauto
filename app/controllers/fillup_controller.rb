@@ -28,5 +28,13 @@ class FillupController < ApplicationController
 
     redirect to "/cars/#{@car.id}"
   end
-  
+
+  get '/fillups/:id' do
+    if logged_in?
+      @fillup = Fillup.find_by(:id => params[:id])
+      erb :'fillups/show'
+    else
+      redirect to '/login'
+    end
+  end
 end

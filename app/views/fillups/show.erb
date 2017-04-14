@@ -1,0 +1,36 @@
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--3-col"></div>
+  <div class="mdl-cell mdl-cell--6-col">
+
+    <h1><%= @fillup.car.nickname %> fill up</h1>
+    <dl>
+      <dt>Date:</dt>
+      <dd><%= @fillup.fillup_date.in_time_zone('Mountain Time (US & Canada)').strftime("%b %d %I:%M %p") %></dd>
+      <dt>Mileage:</dt>
+      <dd><%= @fillup.mileage %></dd>
+      <dt>Gallons:</dt>
+      <dd><%= @fillup.gallons %></dd>
+      <dt>Price:</dt>
+      <dd>$<%= @fillup.price %></dd>
+      <dt>Octane:</dt>
+      <dd><%= @fillup.octane %></dd>
+      <dt>Brand:</dt>
+      <dd><%= @fillup.brand %></dd>
+      <dt>Location:</dt>
+      <dd><%= @fillup.location %></dd>
+    </dl>
+
+    <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" href="/fillups/<%= @fillup.id %>/edit">
+      <i class="material-icons">mode_edit</i>
+    </a>
+
+    <form class="" action="/fillups/<%= @fillup.id %>/delete" method="post">
+      <input id="hidden" type="hidden" name="_method" value="delete">
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" type="submit">
+        <i class="material-icons">delete</i>
+      </button>
+    </form>
+
+  </div>
+  <div class="mdl-cell mdl-cell--3-col"></div>
+</div>

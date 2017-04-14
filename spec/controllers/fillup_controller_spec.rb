@@ -63,14 +63,14 @@ describe FillupController do
 
         visit "/fillups/#{fillup.id}"
         expect(page.status_code).to eq(200)
-        expect(page.body).to include("Delete Fillup")
+        expect(page.body).to include("delete")
         expect(page.body).to include(fillup.location)
-        expect(page.body).to include("Edit Fillup")
+        expect(page.body).to include("mode_edit")
       end
     end
 
     context 'logged out' do
-      it 'does not let a user view a tweet' do
+      it 'does not let a user view a fillup' do
         user = User.create(:username => "becky567", :email => "starz@aol.com", :password => "kittens")
         car = Car.create(:year => 2000, :car_make => "Toyota", :car_model => "Land Cruiser", :nickname => "Land Cruiser", :mileage => 318150, :user_id => user.id)
         fillup = Fillup.create(:mileage => 215000, :gallons => 12, :octane => "91", :price => 36.00, :brand => "Chevron", :location => "Evergreen, CO", :car_id => car.id, :fillup_date => Time.now)
