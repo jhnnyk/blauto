@@ -37,4 +37,28 @@ class FillupController < ApplicationController
       redirect to '/login'
     end
   end
+
+  get '/fillups/:id/edit' do
+    if logged_in?
+      @fillup = Fillup.find_by(:id => params[:id])
+      erb :'fillups/edit'
+    else
+      redirect to '/login'
+    end
+  end
+
+  patch '/fillups/:id' do
+    @fillup = Fillup.find_by(:id => params[:id])
+
+    @fillup.mileage  = Sanitize.fragment(params[:mileage])
+    @fillup.gallons  = Sanitize.fragment(params[:gallons])
+    @fillup.octane   = params[:octane]
+    @fillup.price    = Sanitize.fragment(params[:price])
+    @fillup.brand    = Sanitize.fragment(params[:brand])
+    @fillup.location = Sanitize.fragment(params[:location])
+    @fillup.save
+
+    redirect to "/fillups/#{@fillup.id}"
+  end
+
 end
