@@ -14,7 +14,7 @@ describe ServiceController do
         fill_in(:password, :with => "kittens")
         click_button 'Login'
 
-        visit "/cars/#{car.id}/serivices/new"
+        visit "/cars/#{car.id}/services/new"
         expect(page.status_code).to eq(200)
       end
 

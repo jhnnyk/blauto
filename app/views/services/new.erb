@@ -1,0 +1,38 @@
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--3-col"></div>
+
+  <div class="mdl-cell mdl-cell--6-col">
+
+    <form action="/services/<%= @car.id %>" method="post">
+      <h1><%= @car.nickname %></h1>
+      <hr>
+      <h3>Add a service:</h3>
+
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" name="mileage" id="mileage">
+        <label class="mdl-textfield__label" for="mileage">Mileage</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" name="items" id="items">
+        <label class="mdl-textfield__label" for="items">Items</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" name="price" id="price">
+        <label class="mdl-textfield__label" for="price">Price</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" name="shop" id="shop">
+        <label class="mdl-textfield__label" for="shop">Shop</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" name="location" id="location">
+        <label class="mdl-textfield__label" for="location">Location</label>
+      </div>
+      <br>
+      <input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" value="Add service">
+    </form>
+
+  </div>
+
+  <div class="mdl-cell mdl-cell--3-col"></div>
+</div>
