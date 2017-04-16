@@ -1,0 +1,34 @@
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--3-col"></div>
+  <div class="mdl-cell mdl-cell--6-col">
+
+    <h1><%= @service.car.nickname %> fill up</h1>
+    <dl>
+      <dt>Date:</dt>
+      <dd><%= @service.service_date.in_time_zone('Mountain Time (US & Canada)').strftime("%b %d %I:%M %p") %></dd>
+      <dt>Mileage:</dt>
+      <dd><%= @service.mileage %></dd>
+      <dt>Gallons:</dt>
+      <dd>$<%= @service.price %></dd>
+      <dt>Items:</dt>
+      <dd><%= @service.items %></dd>
+      <dt>Shop:</dt>
+      <dd><%= @service.shop %></dd>
+      <dt>Location:</dt>
+      <dd><%= @service.location %></dd>
+    </dl>
+
+    <a class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" href="/services/<%= @service.id %>/edit">
+      <i class="material-icons">mode_edit</i>
+    </a>
+
+    <form class="" action="/services/<%= @service.id %>/delete" method="post">
+      <input id="hidden" type="hidden" name="_method" value="delete">
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" type="submit">
+        <i class="material-icons">delete</i>
+      </button>
+    </form>
+
+  </div>
+  <div class="mdl-cell mdl-cell--3-col"></div>
+</div>

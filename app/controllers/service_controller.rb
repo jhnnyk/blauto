@@ -31,8 +31,8 @@ class ServiceController < ApplicationController
 
   get '/services/:id' do
     if logged_in?
-      @fillup = Service.find_by(:id => params[:id])
-      erb :'service/show'
+      @service = Service.find_by(:id => params[:id])
+      erb :'services/show'
     else
       redirect to '/login'
     end

@@ -34,6 +34,7 @@
       <% @car.services.each do |service| %>
         <li>
           <%= service.service_date.in_time_zone('Mountain Time (US & Canada)').strftime("%b %d %I:%M %p") %>: <%= service.items %> - $<%= service.price %>
+          <a href="/services/<%= service.id %>"><i class="material-icons">forward</i></a>
         </li>
       <% end %>
     </ul>
