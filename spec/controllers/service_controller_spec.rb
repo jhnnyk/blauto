@@ -165,7 +165,7 @@ describe ServiceController do
         click_button "delete"
         expect(page.status_code).to eq(200)
         expect(Service.find_by(:location => "Evergreen, CO")).to be_instance_of(Service)
-        expect(page.current_path).to include('/users/becky567')
+        expect(page.current_path).to include("/cars/#{car2.id}")
       end
 
     end

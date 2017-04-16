@@ -57,17 +57,18 @@ class ServiceController < ApplicationController
     @service.location = Sanitize.fragment(params[:location])
     @service.save
 
-    redirect to "/services/#{@service.id}"
+    redirect to "/cars/#{@service.car.id}"
   end
 
   delete '/services/:id/delete' do
     @service = Service.find_by(:id => params[:id])
+    @car = @service.car
 
     if current_user == @service.car.user
       @service.delete
     end
 
-    redirect to "/users/#{current_user.slug}"
+    redirect to "/cars/#{@car.id}"
   end
 
 end
