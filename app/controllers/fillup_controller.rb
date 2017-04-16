@@ -60,17 +60,18 @@ class FillupController < ApplicationController
     @fillup.location = Sanitize.fragment(params[:location])
     @fillup.save
 
-    redirect to "/fillups/#{@fillup.id}"
+    redirect to "/cars/#{@fillup.car.id}"
   end
 
   delete '/fillups/:id/delete' do
     @fillup = Fillup.find_by(:id => params[:id])
+    car = @fillup.car
 
     if current_user == @fillup.car.user
       @fillup.delete
     end
 
-    redirect to "/users/#{current_user.slug}"
+    redirect to "/cars/#{car.id}"
   end
 
 end
