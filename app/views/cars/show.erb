@@ -8,35 +8,50 @@
 </div>
 
 <div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--6-col">
+  <div class="mdl-cell mdl-cell--5-col">
     <h3>Fill Ups</h3>
     <a class="new-button mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" href="/cars/<%= @car.id %>/fillups/new">
       <i class="material-icons">add</i>
     </a>
 
-    <ul>
+    <ul class="fillup-list">
       <% @car.fillups.each do |fillup| %>
         <li>
-          <%= fillup.fillup_date.in_time_zone('Mountain Time (US & Canada)').strftime("%b %d %I:%M %p") %>: <%= fillup.gallons %> gallons of <%= fillup.octane %> cost $<%= fillup.price %>
-          <a href="/fillups/<%= fillup.id %>"><i class="material-icons">forward</i></a>
+          <p class="posted_at">Posted <%= fillup.fillup_date.in_time_zone('Mountain Time (US & Canada)').strftime("%b %d %I:%M %p") %>
+          </p>
+          <p class="miles"><span><%= fillup.mileage.to_s.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1,") %></span> miles
+          </p>
+          <p><%= fillup.gallons %> gallons - $<%= "%.2f" % fillup.price %></p>
+          <p class="show-link"><a href="/fillups/<%= fillup.id %>"><i class="material-icons">forward</i></a>
+          </p>
         </li>
       <% end %>
     </ul>
   </div>
 
-  <div class="mdl-cell mdl-cell--6-col">
+  <div class="mdl-cell mdl-cell--1-col"></div>
+
+  <div class="mdl-cell mdl-cell--5-col">
     <h3>Services</h3>
     <a class="new-button mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" href="/cars/<%= @car.id %>/services/new">
       <i class="material-icons">add</i>
     </a>
 
-    <ul>
+    <ul class="service-list">
       <% @car.services.each do |service| %>
         <li>
-          <%= service.service_date.in_time_zone('Mountain Time (US & Canada)').strftime("%b %d %I:%M %p") %>: <%= service.items %> - $<%= service.price %>
-          <a href="/services/<%= service.id %>"><i class="material-icons">forward</i></a>
+          <p class="posted_at">Posted <%= service.service_date.in_time_zone('Mountain Time (US & Canada)').strftime("%b %d %I:%M %p") %>
+          </p>
+          <p class="miles"><span><%= service.mileage.to_s.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1,") %></span> miles
+          </p>
+          <p><%= service.items %> - $<%= "%.2f" % service.price %>
+          </p>
+          <p class="show-link"><a href="/services/<%= service.id %>"><i class="material-icons">forward</i></a>
+          </p>
         </li>
       <% end %>
     </ul>
   </div>
+
+  <div class="mdl-cell mdl-cell--1-col"></div>
 </div>

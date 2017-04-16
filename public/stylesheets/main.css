@@ -8,3 +8,50 @@
   top: -70px;
   left: 200px;
 }
+
+/* ----- Car Page ----- */
+
+.fillup-list,
+.service-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.fillup-list li,
+.service-list li {
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 10px 30px 10px 0;
+}
+
+.fillup-list li p,
+.service-list li p {
+  margin: 0;
+}
+
+p.posted_at {
+  text-align: right;
+  color: #ccc;
+  font-style: italic;
+  font-size: 0.8em;
+  margin: 0;
+}
+
+p.miles {
+  margin: 0;
+  position: relative;
+  top: -25px;
+}
+
+.miles span {
+  font-size: 1.4em;
+  font-weight: bold;
+  font-style: italic;
+}
+
+p.show-link {
+  text-align: right;
+  margin: 0;
+}
