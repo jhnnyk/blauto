@@ -51,9 +51,9 @@ class ServiceController < ApplicationController
     @service = Service.find_by(:id => params[:id])
 
     @service.mileage  = Sanitize.fragment(params[:mileage])
-    @service.items  = Sanitize.fragment(params[:items])
+    @service.items    = Sanitize.fragment(params[:items])
     @service.price    = Sanitize.fragment(params[:price])
-    @service.shop    = Sanitize.fragment(params[:shop])
+    @service.shop     = Sanitize.fragment(params[:shop])
     @service.location = Sanitize.fragment(params[:location])
     @service.save
 

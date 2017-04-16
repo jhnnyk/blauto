@@ -111,9 +111,9 @@ describe ServiceController do
 
         fill_in(:location, :with => "Idaho Springs, CO")
 
-        click_button 'Edit fill up'
-        expect(Service.find_by(:location => "Lakewood, CO")).to be_instance_of(Service)
-        expect(Service.find_by(:location => "Evergreen, CO")).to eq(nil)
+        click_button 'Edit service'
+        expect(Service.find_by(:location => "Idaho Springs, CO")).to be_instance_of(Service)
+        expect(Service.find_by(:location => "Golden, CO")).to eq(nil)
 
         expect(page.status_code).to eq(200)
       end

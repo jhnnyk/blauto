@@ -1,0 +1,39 @@
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--3-col"></div>
+
+  <div class="mdl-cell mdl-cell--6-col">
+
+    <form action="/services/<%= @service.id %>" method="post">
+      <input id="hidden" type="hidden" name="_method" value="patch">
+      <h1><%= @service.car.nickname %></h1>
+      <hr>
+      <h3>Add a service:</h3>
+
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" name="mileage" id="mileage" value="<%= @service.mileage %>">
+        <label class="mdl-textfield__label" for="mileage">Mileage</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" name="items" id="items" value="<%= @service.items %>">
+        <label class="mdl-textfield__label" for="items">Items</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" name="price" id="price" value="<%= @service.price %>">
+        <label class="mdl-textfield__label" for="price">Price</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" name="shop" id="shop" value="<%= @service.shop %>">
+        <label class="mdl-textfield__label" for="shop">Shop</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" name="location" id="location" value="<%= @service.location %>">
+        <label class="mdl-textfield__label" for="location">Location</label>
+      </div>
+      <br>
+      <input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" value="Edit service">
+    </form>
+
+  </div>
+
+  <div class="mdl-cell mdl-cell--3-col"></div>
+</div>
